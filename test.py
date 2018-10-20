@@ -29,9 +29,29 @@ def getData(file):
     inFile.close()
     return list
 
-afile = "P1DataB.csv"
+afile = "P1DataB2.csv"
 data = getData(afile)
 
 def mySort(data,col):
     data_sorted = sorted(data, key=lambda dict: dict[col])
     return(str((data_sorted)[0]["First"]) + " " +str((data_sorted)[0]["Last"]))
+
+def mySortPrint(a,col,fileName):
+    outfile = open(fileName, "w", newline="")
+    sort_data = sorted(a, key=lambda dict: dict[col])
+    just_data = []
+    for dic in sort_data:
+        new_dic = {}
+        new_dic["First"] = dic["First"]
+        new_dic["Last"] = dic["Last"]
+        new_dic["Email"] = dic["Email"]
+        just_data.append(new_dic)
+    fieldnames = ["First", 'Last', "Email"]
+    writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+    writer.writeheader()
+    for dic in just_data:
+        writer.writerow(dic)
+    outfile.close()
+    return outfile
+
+mySortPrint(data, "Last", "outfile.csv")
