@@ -29,7 +29,7 @@ def getData(file):
     inFile.close()
     return list
 
-afile = "P1DataB2.csv"
+afile = "P1DataB.csv"
 data = getData(afile)
 
 def mySort(data,col):
