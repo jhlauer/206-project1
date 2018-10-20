@@ -51,7 +51,7 @@ def findMonth(a):
             months[month] = 1
     data = sorted(months.items(), key=lambda x: x[1], reverse=True)
     winner = data[0]
-    return winner[0]
+    return int(winner[0])
 
 def mySortPrint(a,col,fileName):
     outfile = open(fileName, "w", newline="")

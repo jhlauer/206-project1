@@ -32,26 +32,17 @@ def getData(file):
 afile = "P1DataA.csv"
 data = getData(afile)
 
-def mySort(data,col):
-    data_sorted = sorted(data, key=lambda dict: dict[col])
-    return(str((data_sorted)[0]["First"]) + " " +str((data_sorted)[0]["Last"]))
+def findMonth(a):
+    months = {}
+    for dic in a:
+        birthday = dic["DOB"]
+        month = birthday[:2].rstrip('/')
+        if month in months:
+            months[month] += 1
+        else:
+            months[month] = 1
+    data = sorted(months.items(), key=lambda x: x[1], reverse=True)
+    winner = int(data[0])
+    return winner[0]
 
-def mySortPrint(a,col,fileName):
-    outfile = open(fileName, "w", newline="")
-    sort_data = sorted(a, key=lambda dict: dict[col])
-    just_data = []
-    for dic in sort_data:
-        new_dic = {}
-        new_dic["First"] = dic["First"]
-        new_dic["Last"] = dic["Last"]
-        new_dic["Email"] = dic["Email"]
-        just_data.append(new_dic)
-    fieldnames = ["First", 'Last', "Email"]
-    writer = csv.DictWriter(outfile, fieldnames=fieldnames)
-    writer.writeheader()
-    for dic in just_data:
-        writer.writerow(dic)
-    outfile.close()
-    return outfile
-
-mySortPrint(data, "Last", "outfile.csv")
+print(findMonth(data))
